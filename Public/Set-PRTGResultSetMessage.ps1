@@ -16,8 +16,8 @@ Output the PRTG Result Set Object in JSON Format. Typically this is the last ste
         $PRTGResultSet = New-PRTGResultSet
     }
 
-    if ($AsError) {$PRTGResultSet.Error = 1}
+    if ($AsError) {$PRTGResultSet.prtg.error = 1}
 
-    $PRTGResultSet.text = $Message
+    $PRTGResultSet.prtg.text = $Message
     $PRTGResultSet
 }
