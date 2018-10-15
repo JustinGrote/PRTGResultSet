@@ -13,6 +13,10 @@ function Add-PRTGResult {
         [Parameter(Mandatory,ValueFromPipelineByPropertyName)][Float]$Value,
         #A PRTG Result set created by New-PRTGResultSet
         [Parameter(ValueFromPipeline)][PSCustomObject]$PRTGResultSet,
+
+        #Pass through the final resultset (if not creating a new one)
+        [Switch]$PassThru,
+
         #Define if the limit settings defined above will be active. Default is false (no; limits inactive). If 0 is used the limits will be written to the sensor channel settings as predefined values, but limits will be disabled.
         [Parameter(ValueFromPipelineByPropertyName)][Switch]$LimitMode,
         #If enabled for at least one channel, the entire sensor is set to "Warning" status. Default is false (no).
@@ -68,7 +72,7 @@ function Add-PRTGResult {
 
     process {
         #Strip Common Parameters
-        $CommonPSParameters = "Debug","ErrorAction","ErrorVariable","InformationAction","InformationVariable","OutVariable","OutBuffer","PipelineVariable","Verbose","WarningAction","WarningVariable","Whatif","Confirm"
+        $CommonPSParameters = "Debug","ErrorAction","ErrorVariable","InformationAction","InformationVariable","OutVariable","OutBuffer","PipelineVariable","Verbose","WarningAction","WarningVariable","Whatif","Confirm","PRTGResultSet"
         $PRTGParams = $PSCmdlet.MyInvocation.BoundParameters
         $PRTGParams.keys.clone() | Foreach-Object {
             if ($CommonPSParameters -contains $PSItem) {
@@ -82,8 +86,15 @@ function Add-PRTGResult {
                 $PRTGParams[$PSItem] = [int][bool]($PRTGParams[$PSItem])
             }
         }
-        if (-not $PRTGResultSet) {$PRTGResultSet = New-PRTGResultSet}
+        if (-not $PRTGResultSet) {
+            $PRTGResultSet = New-PRTGResultSet
+            $IsNewResultSet = $true
+        }
+
         $PRTGResultSet.prtg.result.add($PRTGParams) > $null
-        $PRTGResultSet
+        if ($passthru -or $IsNewResultSet) {
+            $PRTGResultSet
+        }
+
     }
 }
