@@ -22,5 +22,8 @@ Output the PRTG Result Set Object in JSON Format. Typically this is the last ste
     if ($AsWarning) {$PRTGResultSet.prtg.warning = 1}
 
     $PRTGResultSet.prtg.text = $Message
-    $PRTGResultSet
+    if ($AsError -or (-not $PRTGResultSet)) {
+        $PRTGResultSet
+    }
+
 }
