@@ -12,7 +12,7 @@ function Add-PRTGResult {
         #The value as integer or float.
         [Parameter(Mandatory,ValueFromPipelineByPropertyName)][Float]$Value,
         #A PRTG Result set created by New-PRTGResultSet
-        [Parameter(ValueFromPipeline)][PSCustomObject]$PRTGResultSet,
+        [Parameter(ValueFromPipeline)][PRTGResult]$PRTGResultSet,
 
         #Pass through the final resultset (if not creating a new one)
         [Switch]$PassThru,
@@ -87,11 +87,12 @@ function Add-PRTGResult {
             }
         }
         if (-not $PRTGResultSet) {
-            $PRTGResultSet = New-PRTGResultSet
+            $PRTGResultSet = New-PRTGResult
             $IsNewResultSet = $true
         }
 
-        $PRTGResultSet.prtg.result.add($PRTGParams) > $null
+        $PRTGResultSet += $PRTGParams
+
         if ($passthru -or $IsNewResultSet) {
             $PRTGResultSet
         }

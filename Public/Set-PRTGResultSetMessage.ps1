@@ -11,19 +11,18 @@ Output the PRTG Result Set Object in JSON Format. Typically this is the last ste
         #Specify if the message is a warning
         [Switch]$AsWarning,
         #The PRTG Result Set to set the message for
-        [Parameter(ValueFromPipeline)][PSCustomObject]$PRTGResultSet
+        [Parameter(ValueFromPipeline)]$PRTGResultSet
     )
 
     if ($AsError -or (-not $PRTGResultSet)) {
-        $PRTGResultSet = New-PRTGResultSet
+        $PRTGResultSet = New-PRTGResult
     }
 
-    if ($AsError) {$PRTGResultSet.prtg.error = 1}
-    if ($AsWarning) {$PRTGResultSet.prtg.warning = 1}
+    if ($AsError) {$PRTGResultSet.isError = $true}
+    if ($AsWarning) {$PRTGResultSet.isWarning = $true}
 
-    $PRTGResultSet.prtg.text = $Message
+    $PRTGResultSet.message = $Message
     if ($AsError -or (-not $PRTGResultSet)) {
         $PRTGResultSet
     }
-
 }
