@@ -5,16 +5,6 @@ param (
 
 import-module (join-path $ModulePath '*.psd1') -force
 
-#Import related classes if present
-<#
-if (get-item $ModulePath\Private\*.Class.ps1) {
-    . $ModulePath\Private\*.Class.ps1
-}
-if (get-item $ModulePath\Public\*.Class.ps1) {
-    . $ModulePath\Public\*.Class.ps1
-}
-#>
-
 Describe 'PRTGResult Class' {
     It 'Basic Construct' {
         $prtgresult = New-PRTGResult
