@@ -9,7 +9,7 @@ import-module (join-path $ModulePath '*.psd1') -force
 Describe 'PRTGResult Class' {
     It 'Basic Construct' {
         $prtgresult = New-PRTGResult
-        $prtgresult.gettype().name | Should -Be 'PRTGResult'
+        $prtgresult.gettype().name | Should Be 'PRTGResult'
     }
     It 'String Cast Outputs Proper JSON' {
         $prtgresult = New-PRTGResult
@@ -17,7 +17,7 @@ Describe 'PRTGResult Class' {
         $prtgresult.iswarning = $true
         $prtgresult.iserror = $true
         $prtgresult += @{Channel="TestChannel";Value="TestValue"}
-        [string]$prtgresult | Should -Be '{"prtg":{"result":[{"Channel":"TestChannel","Value":"TestValue"}],"text":"testmessage","warning":1,"error":1}}'
+        [string]$prtgresult | Should Be '{"prtg":{"result":[{"Channel":"TestChannel","Value":"TestValue"}],"text":"testmessage","warning":1,"error":1}}'
     }
 }
 
