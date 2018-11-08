@@ -4,7 +4,8 @@ version: '{build}-{branch}'
 image:
   - Visual Studio 2017
 install:
-  - ps: Install-Module -Name InvokeBuild,BuildHelpers,PSScriptAnalyzer,Plaster -Confirm:$false -Force
+  - cinst -y pester
+  - ps: Install-Module -Name InvokeBuild,BuildHelpers,PSScriptAnalyzer,Plaster,Pester -Confirm:$false -Force
 
 #Encrypted Variables - https://ci.appveyor.com/tools/encrypt
 environment:
