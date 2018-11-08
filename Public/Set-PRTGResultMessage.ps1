@@ -1,4 +1,4 @@
-function Set-PRTGResultSetMessage {
+function Set-PRTGResultMessage {
 <#
 .SYNOPSIS
 Output the PRTG Result Set Object in JSON Format. Typically this is the last step in your EXEXML script to report to PRTG
