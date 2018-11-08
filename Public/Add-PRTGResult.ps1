@@ -12,7 +12,7 @@ function Add-PRTGResult {
         #The value as integer or float.
         [Parameter(Mandatory,ValueFromPipelineByPropertyName)][Float]$Value,
         #A PRTG Result set created by New-PRTGResultSet
-        [Parameter(ValueFromPipeline)][PRTGResult]$PRTGResultSet,
+        [Parameter(ValueFromPipeline)]$PRTGResultSet,
 
         #Pass through the final resultset (if not creating a new one)
         [Switch]$PassThru,
